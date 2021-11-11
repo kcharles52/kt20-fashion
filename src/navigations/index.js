@@ -1,11 +1,12 @@
+import 'react-native-gesture-handler';
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {Text} from 'react-native';
+import AuthNavigator from './AuthNavigator';
 
 const AppNavContainer = () => {
   return (
     <NavigationContainer>
-      <Text>Kt 20 fashions</Text>
+      <AuthNavigator />
     </NavigationContainer>
   );
 };
