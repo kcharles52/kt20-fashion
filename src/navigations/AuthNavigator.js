@@ -1,31 +1,16 @@
 import React from 'react';
 import {createDrawerNavigator} from '@react-navigation/drawer';
-import {Text, View} from 'react-native';
-
-// to be moved to separate files
-const Register = () => {
-  return (
-    <View>
-      <Text>Register</Text>
-    </View>
-  );
-};
-
-const Login = () => {
-  return (
-    <View>
-      <Text>Login</Text>
-    </View>
-  );
-};
+import {LOGIN, REGISTER} from '../constants/routeNames';
+import Register from '../screens/Register';
+import Login from '../screens/Login';
 
 const AuthStack = createDrawerNavigator();
 
 const AuthNavigator = () => {
   return (
     <AuthStack.Navigator>
-      <AuthStack.Screen name="Register" component={Register} />
-      <AuthStack.Screen name="Login" component={Login} />
+      <AuthStack.Screen name={REGISTER} component={Register} />
+      <AuthStack.Screen name={LOGIN} component={Login} />
     </AuthStack.Navigator>
   );
 };

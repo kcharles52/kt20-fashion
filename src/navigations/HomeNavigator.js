@@ -1,24 +1,8 @@
 import React from 'react';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {Text, View} from 'react-native';
-import {HOME} from '../constants/routeNames';
-
-// to be moved to separate files
-const Home = () => {
-  return (
-    <View>
-      <Text>Home</Text>
-    </View>
-  );
-};
-
-const Login = () => {
-  return (
-    <View>
-      <Text>Login</Text>
-    </View>
-  );
-};
+import {HOME, LOGIN} from '../constants/routeNames';
+import Home from '../screens/Home';
+import Login from '../screens/Login';
 
 const Stack = createNativeStackNavigator();
 
@@ -26,7 +10,7 @@ const HomeNavigator = () => {
   return (
     <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name={HOME} component={Home} />
-      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name={LOGIN} component={Login} />
     </Stack.Navigator>
   );
 };
