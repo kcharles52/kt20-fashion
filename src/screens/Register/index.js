@@ -1,11 +1,11 @@
 import React from 'react';
-import {Text, View} from 'react-native';
 import Container from '../../components/Common/Container/index';
+import RegisterComponent from '../../components/SignUp';
 
 const Register = () => {
   return (
     <Container>
-      <Text>Register</Text>
+      <RegisterComponent />
     </Container>
   );
 };
