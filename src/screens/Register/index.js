@@ -1,11 +1,12 @@
 import React from 'react';
 import {Text, View} from 'react-native';
+import Container from '../../components/Common/Container/index';
 
 const Register = () => {
   return (
-    <View>
+    <Container>
       <Text>Register</Text>
-    </View>
+    </Container>
   );
 };
 
