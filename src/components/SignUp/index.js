@@ -8,7 +8,7 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {LOGIN} from '../../constants/routeNames';
 
-const LoginComponent = () => {
+const LoginComponent = ({onChange, onSubmit, forma, errors}) => {
   const {navigate} = useNavigation();
 
   return (
@@ -21,20 +21,36 @@ const LoginComponent = () => {
         <Text style={styles.subTitle}>Create a free account</Text>
 
         <View style={styles.form}>
-          <Input label="Email" iconPosition="right" placeholder="Enter Email" />
+          <Input
+            label="Email"
+            iconPosition="right"
+            placeholder="Enter Email"
+            onChangeText={value => {
+              onChange({name: 'email', value});
+            }}
+            error={errors.email}
+          />
           <Input
             label="Password"
             icon={<Text>Show</Text>}
             iconPosition="right"
             placeholder="Enter Password"
             secureTextEntry={true}
+            onChangeText={value => {
+              onChange({name: 'password', value});
+            }}
+            error={errors.password}
           />
           <Input
             label="Role"
             iconPosition="right"
             placeholder="Your role e.g stylist/client"
+            onChangeText={value => {
+              onChange({name: 'role', value});
+            }}
+            error={errors.role}
           />
-          <CustomButton primary title="Submit" />
+          <CustomButton primary title="Submit" onPress={onSubmit} />
           <View style={styles.createSection}>
             <Text style={styles.infoText}>Already have an account?</Text>
             <TouchableOpacity

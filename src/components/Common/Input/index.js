@@ -56,6 +56,7 @@ const Input = ({
           {...rest}
         />
       </View>
+      {error && <Text style={styles.error}>{error}</Text>}
     </View>
   );
 };
