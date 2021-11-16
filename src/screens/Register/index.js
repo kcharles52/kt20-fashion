@@ -1,10 +1,13 @@
 import React, {useState} from 'react';
 import Container from '../../components/Common/Container/index';
 import RegisterComponent from '../../components/SignUp';
+import envs from '../../config/env';
 
 const Register = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+
+  console.log('ens', envs);
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
