@@ -8,7 +8,14 @@ import styles from './styles';
 import {useNavigation} from '@react-navigation/core';
 import {LOGIN} from '../../constants/routeNames';
 
-const LoginComponent = ({onChange, onSubmit, forma, errors}) => {
+const LoginComponent = ({
+  onChange,
+  onSubmit,
+  forma,
+  loading,
+  error,
+  errors,
+}) => {
   const {navigate} = useNavigation();
 
   return (
@@ -28,7 +35,7 @@ const LoginComponent = ({onChange, onSubmit, forma, errors}) => {
             onChangeText={value => {
               onChange({name: 'email', value});
             }}
-            error={errors.email}
+            error={errors.email || error?.email?.[0]}
           />
           <Input
             label="Password"
@@ -39,7 +46,7 @@ const LoginComponent = ({onChange, onSubmit, forma, errors}) => {
             onChangeText={value => {
               onChange({name: 'password', value});
             }}
-            error={errors.password}
+            error={errors.password || error?.password?.[0]}
           />
           <Input
             label="Role"
@@ -48,9 +55,15 @@ const LoginComponent = ({onChange, onSubmit, forma, errors}) => {
             onChangeText={value => {
               onChange({name: 'role', value});
             }}
-            error={errors.role}
+            error={errors.role || error?.role?.[0]}
           />
-          <CustomButton primary title="Submit" onPress={onSubmit} />
+          <CustomButton
+            primary
+            title="Submit"
+            onPress={onSubmit}
+            loading={loading}
+            disabled={loading}
+          />
           <View style={styles.createSection}>
             <Text style={styles.infoText}>Already have an account?</Text>
             <TouchableOpacity

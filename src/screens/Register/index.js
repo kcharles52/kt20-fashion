@@ -1,33 +1,30 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useContext} from 'react';
+import {useNavigation, useFocusEffect} from '@react-navigation/native';
 import Container from '../../components/Common/Container/index';
 import RegisterComponent from '../../components/SignUp';
-import envs from '../../config/env';
-import axiosInstance from '../../helpers/axiosInstance';
+import {GlobalContext} from '../../context/Provider';
+import register, {clearAuthState} from '../../context/actions/auth/register';
+import {LOGIN} from '../../constants/routeNames';
 
 const Register = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
+  const {navigate} = useNavigation();
 
-  console.log('ens', envs);
+  const {
+    authDispatch,
+    authState: {error, loading, data},
+  } = useContext(GlobalContext);
 
-  useEffect(() => {
-    const login = async () => {
-      try {
-        const {
-          data: {token},
-        } = await axiosInstance.post('/signin', {
-          password: 'charles',
-          email: 'charles@gmail.com',
-          role: 'client',
-        });
-        console.log('token', token);
-      } catch (error) {
-        console.log(error);
-      }
-    };
-
-    login();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      return () => {
+        if (data || error) {
+          clearAuthState()(authDispatch);
+        }
+      };
+    }, [authDispatch, data, error]),
+  );
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
@@ -58,7 +55,6 @@ const Register = () => {
 
   const onSubmit = () => {
     // TODO: better validation later
-    console.log(form);
     if (!form.email) {
       setErrors(prev => ({...prev, email: 'Please add an Email'}));
     }
@@ -67,6 +63,16 @@ const Register = () => {
     }
     if (!form.role) {
       setErrors(prev => ({...prev, role: 'Please add a role'}));
+    }
+
+    if (
+      Object.values(form).length === 3 &&
+      Object.values(form).every(item => item.trim().length > 0) &&
+      Object.values(errors).every(item => !item)
+    ) {
+      register(form)(authDispatch)(response => {
+        navigate(LOGIN, {data: response});
+      });
     }
   };
 
@@ -77,6 +83,8 @@ const Register = () => {
         onSubmit={onSubmit}
         form={form}
         errors={errors}
+        error={error}
+        loading={loading}
       />
     </Container>
   );
