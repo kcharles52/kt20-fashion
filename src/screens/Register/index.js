@@ -1,13 +1,33 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import Container from '../../components/Common/Container/index';
 import RegisterComponent from '../../components/SignUp';
 import envs from '../../config/env';
+import axiosInstance from '../../helpers/axiosInstance';
 
 const Register = () => {
   const [form, setForm] = useState({});
   const [errors, setErrors] = useState({});
 
   console.log('ens', envs);
+
+  useEffect(() => {
+    const login = async () => {
+      try {
+        const {
+          data: {token},
+        } = await axiosInstance.post('/signin', {
+          password: 'charles',
+          email: 'charles@gmail.com',
+          role: 'client',
+        });
+        console.log('token', token);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    login();
+  }, []);
 
   const onChange = ({name, value}) => {
     setForm({...form, [name]: value});
