@@ -8,7 +8,7 @@ const Stack = createNativeStackNavigator();
 
 const HomeNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Home">
+    <Stack.Navigator initialRouteName={HOME}>
       <Stack.Screen name={HOME} component={Home} />
       <Stack.Screen name={LOGOUT} component={Logout} />
     </Stack.Navigator>
